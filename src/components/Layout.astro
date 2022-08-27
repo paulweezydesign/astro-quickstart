@@ -15,8 +15,59 @@ const { title } = Astro.props as Props;
 	<meta name="viewport" content="width=device-width">
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 	<title>{title}</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/js/all.min.js" integrity="sha512-8pHNiqTlsrRjVD4A/3va++W1sMbUHwWxxRPWNyVlql3T+Hgfd81Qc6FC5WMXDC+tSauxxzp1tgiAvSKFu1qIlA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="//unpkg.com/alpinejs" defer></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel='stylesheet' href='./public/app.css' />
 </head>
 <body>
+<nav class='grid grid-cols-2 md:grid-cols-4 w-screen justify-center items-center px-[5%] py-4'>
+  <div class="">
+    <a href='/' class='text-xl font-black'>My cute kittens</a>
+  </div>
+  <div class="md:col-span-2 hidden md:flex md:justify-evenly w-full ">
+    <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/'>Home</a>
+    <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/about'>About</a>
+    <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/contact'>Contact</a>
+    <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/kittens'>Kittens</a></div>
+  <div class="hidden md:flex  md:justify-end">
+    <a class="px-7 py-2 font-semibold text-white/90 tracking-wide bg-gradient-to-b from-purple-700 to-indigo-500 rounded shadow-xl shadow-indigo-700/60 hover:scale-110 hover:shadow-xl transform-all hover:shadow-[deeppink]/40" href="/contact">Contact</a>
+  </div>
+  <div class="md:hidden  flex justify-end ">
+          <div x-data="{ open: false }">
+              <button @click="open = ! open">
+                  <i class='fa fa-bars text-2xl'></i>
+              </button>
+
+              <div
+                x-transition:enter="transition ease-out duration-300"
+                       x-transition:enter-start="opacity-0  translate-x-0"
+                       x-transition:enter-end="opacity-100  -translate-x-full"
+                       x-transition:leave="transition ease-in duration-500"
+                       x-transition:leave-start="opacity-100 -translate-x-full"
+                       x-transition:leave-end="opacity-0 translate-x-0"
+               x-show="open" @click.outside="open = false"  class='absolute h-screen w-[300px] z-50 shadow-xl shadow-black bg-white text-black/90 top-0 right-0'>
+                      <button class='ml-4 mt-3' @click="open = ! open">
+                                <i class='fa fa-close hover:text-red'></i>
+
+                              </button>
+                              <div class="flex justify-center">
+                               <h3 class="text-xl font-black">Menu</h3>
+                              </div>
+                              <div class="flex items-center justify-center flex-col h-sceen'>
+                      <div class="md:col-span-2 hidden md:flex md:justify-evenly w-full md:flex-col h-screen ">
+                        <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/'>Home</a>
+                        <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/about'>About</a>
+                        <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/contact'>Contact</a>
+                        <a class='mr-12 hover:text-[deeppink] hover:scale-110 hover:font-semibold hover:underline active:text-[deeppink]' href='/kittens'>Kittens</a></div>
+                      <div class="hidden md:flex  md:justify-end">
+                      </div>
+              </div>
+          </div>
+  </div>
+
+</nav>
 	<slot />
 </body>
 </html>
@@ -24,7 +75,7 @@ const { title } = Astro.props as Props;
 <style>
   :root {
     --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem); 
+		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
     --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
     --color-text: hsl(12, 5%, 4%);
     --color-bg: hsl(10, 21%, 95%);
@@ -38,14 +89,5 @@ const { title } = Astro.props as Props;
   body {
     margin: 0;
   }
-  :global(h1) {
-    font-size: var(--font-size-xl);
-  }
-  :global(h2) {
-    font-size: var(--font-size-lg);
-  }
-  :global(code) {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-  }
+
 </style>
